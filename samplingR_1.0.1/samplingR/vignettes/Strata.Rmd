@@ -1,0 +1,142 @@
+---
+title: "Determinación del calculo de tamaño de muestra utilizando distintas afijaciones, considerando costes y sin considerar costes"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Determinacióndel calculo de tamaño de muestra utilizando distintas afijaciones, considerando costes y sin considerar costes}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(samplingR)
+```
+
+
+## Preparamos los datos
+La población está compuesta por 2 estratos generados sintéticamente a partir de dos distribuciones normales.
+
+
+### Primer estrato: pensionistas en CyL
+
+```{r}
+N1<-585479
+pen<-rnorm(N1, 750, 100)
+```
+
+### Segundo estrato: asalariados en CyL
+
+```{r}
+N2<-932992
+ass<-rnorm(N2, 1500, 500)
+```
+
+```{r}
+datos<-cbind(c(pen, ass), c(rep("pensionista", N1), rep("asalariado", N2)))
+N<-N1+N2
+```
+
+## Ejercicio 1. Consideremos una muestra global de n=800 individuos y afijacion uniforme
+
+### a) Reparto de la muestra
+
+```{r}
+Nh<-c(N1, N2)
+n<-800
+strata.allocation(Nh=Nh, n=n, alloc="unif")
+```
+
+### b) Suponiendo una función de coste
+
+```{r}
+C<-12000
+Cini<-5000
+ch<-c(45, 20)
+size<-strata.samplesize.cost(Nh=Nh, C=C, cini=Cini, ch=ch, alloc="unif")
+paste("Tamaño de muestra", size)
+nh.unif<-strata.allocation(Nh=Nh, n=size, alloc="unif")
+
+paste(c("Estrato 1:", "Estrato 2"), nh.unif)
+paste("Coste:", Cini+sum(ch*nh.unif))
+```
+
+Como los tamaños de muestra deben ser enteros redondeamos al entero inferior.
+
+```{r}
+nh.unif<-floor(nh.unif)
+paste(c("Estrato 1:", "Estrato 2"), nh.unif)
+paste("Coste:", Cini+sum(ch*nh.unif))
+```
+
+## Ejercicio 2. Afijación proporcional
+
+### a) Reparto de la muestra
+
+```{r}
+strata.allocation(Nh=Nh, n=n, alloc="prop")
+```
+
+### b) Con función de coste igual a la anterior
+
+```{r}
+size<-strata.samplesize.cost(Nh=Nh, C=C, cini=Cini, ch=ch, alloc="prop")
+paste("Tamaño de muestra", size)
+nh.unif<-floor(strata.allocation(Nh=Nh, n=size, alloc="prop"))
+paste(c("Estrato 1:", "Estrato 2"), nh.unif)
+paste("Coste:", Cini+sum(ch*nh.unif))
+```
+
+## Ejercicio 3. Afijación de mínima varianza
+
+La afijación de Neyman depende de las cuasivarianzas de los estratos, por lo que se deben estimar.
+
+### a) Reparto de la muestra
+
+Opción 1: usar las varianzas reales como estimadores (solución teórica)
+
+```{r}
+vart<-c(var(pen), var(ass))
+strata.allocation(Nh=Nh, n=n, var=vart, alloc="min")
+```
+
+Opción 2: tomar una muestra previa para estimar las cuasivarianzas de los estratos.
+
+```{r}
+sample<-strata.sample(data=datos, n=c(20, 20))
+var<-c(var(sample[which(sample[,2]=="asalariado"),1]), var(sample[which(sample[,2]=="pensionista"),1]))
+strata.allocation(Nh=Nh, n=n, var=var, alloc="min")
+
+```
+
+Opción 3: estimación más conservadora. Suponemos cuasivarianza máxima en todos los 
+estratos = $\frac{N_h}{N_h-1}p(1-p)$ con p=0.5
+
+```{r}
+var<-c(Nh/(Nh-1)*0.5*(1-0.5))
+strata.allocation(Nh=Nh, n=n, var=var, alloc="min")
+```
+
+Si no se fija la varianza en la función se mostrará un warning y la varianza declarada en la función será la máxima para cada estrato.
+```{r}
+strata.allocation(Nh=Nh, n=n, alloc="min")
+```
+La estimación conservadora coincide con el cálculo de afijación proporcional.
+
+
+### b) Con función de coste igual a la anterior y solución teórica
+
+En la afijación de mínima varianza optimizando con una función de costes es equivalente a utilizar la afijación óptima.
+
+```{r}
+size<-strata.samplesize.cost(Nh=Nh, var=vart, C=C, cini=Cini, ch=ch, alloc="optim")
+paste("Tamaño de muestra", size)
+nh.optim<-floor(strata.allocation(Nh=Nh, n=size, var=vart, alloc="optim", C=C, cini=Cini, ch=ch))
+paste(c("Estrato 1:", "Estrato 2"), nh.optim)
+paste("Coste:", Cini+sum(ch*nh.optim))
+```
