@@ -1,0 +1,134 @@
+El muestreo por conglomerados considera que los M individuos de la población están a su vez agrupados en N unidades llamadas conglomerados, de forma que sean lo más heterogéneas posibles, pero lo más homogéneas posibles entre ellas, y de forma que no haya solapamiento. Se trata por tanto del caso opuesto al del muestreo estratificado\\
+
+Por lo tanto, en este tipo de muestreo, la unidad primaria de muestreo pasa a ser el conglomerado en lugar del individuo y por lo tanto una muestra primaria de tamaño n en el muestreo por conglomerados está formada por n conglomerados compuestos por la totalidad de sus individuos (esto en el supuesto de una muestra monoetápica). Esta forma de selección de la muestra ofrece las siguientes ventajas:\\
+
+\begin{itemize}[label=$\bullet$]
+    \item No requiere de un marco muy específico y detallado ya que no necesita la información individual de los individuos de la población.
+    \item Al seleccionar aleatoriamente conglomerados en lugar de elementos individuales, se reduce la cantidad de recursos necesarios para la recopilación de datos, con el consiguiente ahorro de costes.
+    \item En poblaciones grandes y dispersas, el muestreo por conglomerados puede ser más factible logísticamente, ya que por el tipo de selección facilita la organización y la ejecución del estudio.
+\end{itemize}
+
+Pero también es causa de algunas de sus principales desventajas:
+
+\begin{itemize}[label=$\bullet$]
+    \item En los casos en los que la variación dentro de los conglomerados sea mayor que la variación entre los conglomerados puede resultar en una mayor variabilidad y una reducción de la precisión de las estimaciones en comparación a otras técnicas de muestreo.
+    \item Su eficiencia disminuye a medida que aumenta el tamaño de los conglomerados, que es el caso en el que este tipo de muestreo es más útil.
+    \item En el caso de no seleccionar unidades de muestreo correctamente se corre el riesgo de no representar correctamente a la población e introducir sesgos en la estimación.
+\end{itemize}
+En este capítulo se abarcará la estimación en el caso de que los estratos sean de igual tamaño o de tamaños similares. En este último caso, lo que se suele hacer es calcular el tamaño promedio de conglomerado como $\bar{M} = \frac{\sum\limits_i^nM_i}{n}$
+
+
+\section{Selección de la muestra} \label{sect:6.1}
+Para la selección de la muestra y la estimación de parámetros se han diferenciado los dos casos que a continuación se indica:
+
+\begin{itemize}[label=$\bullet$]
+    \item Cuando los datos de la variable a investigar están dados a nivel de conglomerados (por ejemplo total de clase, media del conglomerado, etc.).
+    \item Cuando se disponen de los datos de las unidades poblacionales de los conglomerados en la muestra.
+\end{itemize}
+
+
+
+
+%en los que los datos están agrupados por conglomerados, en los que para conglomerado tenemos su tamaño y en la variable de interés el total o la proporción de las respuestas de los individuos de dicho conglomerado; y los datos desglosados, en los que cada individuo tiene su información de la variable de interés y el conglomerado al que pertenece. Esto se debe a que siempre que tengamos los datos no agrupados estos pueden ser agrupados mediante un procesamiento medio pero el caso contrario no es posible. De esta forma se garantiza poder realizar estimaciones independientemente de la presentación de los datos.\\
+
+
+Para obtener una muestra en el primer caso basta con tomar una de tipo aleatoria simple de los datos. Al estar agrupados por conglomerado cada instancia seleccionada para la muestra se trata de un conglomerado completo.\\
+
+Con los datos no agrupados se crea una lista con todos los conglomerados existentes en la población. Se extrae una muestra aleatoria simple de la lista de conglomerados y se toman todos los individuos cuyo conglomerado coincida con alguno de los conglomerados de la muestra.
+
+\section{Estimadores lineales insesgados} \label{sect:6.2}
+Si al extraer la muestra se utilizara una variable de apoyo $e_i$ que toma valores 1 si el conglomerado i pertenece a la muestra con probabilidad $p=\frac{n}{N}$ y 0 en caso contrario con probabilidad 1-p, tenemos que $E(e_i) = \pi_i = \frac{n}{N}$, por lo que aplicando el estimador lineal general de Horwitz-Thompson podemos estimar los parámetros para el muestreo por conglomerados sin reemplazamiento:
+
+\begin{equation}
+    \hat{X} = \frac{\sum\limits_i^n\sum\limits_j^{\bar{M}}X_{ij}}{\pi_i} = \frac{\sum\limits_i^n\sum\limits_j^{\bar{M}}X_{ij}}{\frac{N}{n}} = \frac{N}{n}\sum\limits_i^n\sum\limits_j^{\bar{M}}X_{ij} = \frac{N}{n}\sum\limits_i^nX_i
+\end{equation}
+
+\begin{equation}
+    \hat{\bar{X}} = \frac{1}{n}\sum\limits_i^n\frac{1}{\bar{M}}\sum\limits_j^{\bar{M}}X_{ij} = \frac{1}{n}\sum\limits_i^n\frac{1}{\bar{M}}X_i
+\end{equation}
+
+\begin{equation}
+    \hat{P} = \frac{1}{n}\sum\limits_i^n\frac{1}{\bar{M}}\sum\limits_j^{\bar{M}}A_{ij} = \frac{1}{n}\sum\limits_i^n\frac{1}{\bar{M}}A_i
+\end{equation}
+
+\begin{equation}
+    \hat{A} = \frac{N}{n}\sum\limits_i^n\sum\limits_j^{\bar{M}}A_{ij} = \frac{N}{n}\sum\limits_i^nA_i
+\end{equation}
+
+Las probabilidades de inclusión en la muestra coinciden en el muestreo con reemplazamiento por lo que sus estimadores insesgados también.
+
+\section{Estimación de varianzas} \label{sect:6.3}
+Para expresar la estimación de varianzas es preciso conocer la fórmula de la varianza entre conglomerados:\\
+
+\begin{equation}
+    \hat{S_b^2} = \frac{\sum\limits_i^n\sum\limits_j^{\bar{M}}(\bar{X_i}-\bar{X})^2}{n-1}
+\end{equation}
+
+con lo que la estimación de la varianza para el muestreo por conglomerados sin reposición es:\\
+
+\begin{equation}
+    \widehat{V(X)} = N^2\bar{M}^2(1-f)\frac{\hat{S_b^2}}{n\bar{M}}
+\end{equation}
+
+\begin{equation}
+    \widehat{V(\bar{X})} = (1-f)\frac{\hat{S_b^2}}{n\bar{M}}
+\end{equation}
+
+\begin{equation}
+    \widehat{V(P)} = (1-f)\frac{\hat{S_b^2}}{n\bar{M}}
+\end{equation}
+
+\begin{equation}
+    \widehat{V(A)} = N^2\bar{M}^2(1-f)\frac{\hat{S_b^2}}{n\bar{M}}
+\end{equation}
+
+Para el muestreo con reposición las fórmulas se mantienen salvo por el factor (1-f).
+
+\section{Tamaño de la muestra} \label{sect:6.4}
+
+A la hora de su aplicación práctica y llevar a cabo la investigación estadística en campo, el diseño de muestreo por conglomerados generalmente conlleva una función de costes de muestreo en su realización.\\
+
+El cálculo del tamaño muestral implica por lo tanto un problema de optimización con la finalidad de minimizar la varianza del estimador, con restricciones impuestas por dicha función de costes, cuya resolución es compleja y suele realizarse mediante algoritmos algebraicos de optimización iterativos, por lo que quedaría fuera del alcance de los objetivos marcados en este trabajo.\\
+
+Si eliminamos la restricción de la función de costes podemos obtener las siguientes estimaciones para un error absoluto de muestreo dado en el muestreo sin reemplazamiento:
+
+\begin{equation}
+    e = \sqrt{\widehat{V(\hat{\bar{X}})}} = \sqrt{(1-f)\frac{\hat{S_b^2}}{n\bar{M}}} \Rightarrow n = \frac{(1-f)\hat{S_b^2}}{e^2\bar{M}}
+\end{equation}
+
+\begin{equation}
+    e = \sqrt{\widehat{V(\hat{X})}} = \sqrt{(1-f)\frac{N^2\bar{M}\hat{S_b^2}}{n}} \Rightarrow n = \frac{(1-f)N^2\bar{M}\hat{S_b^2}}{e^2}
+\end{equation}
+
+Si añadimos un coeficiente de confianza para relajar el cálculo tenemos:
+
+\begin{equation}
+    e = \lambda_\alpha\sqrt{\widehat{V(\hat{\bar{X}})}} = \sqrt{(1-f)\frac{\hat{S_b^2}}{n\bar{M}}} \Rightarrow n = \\lambda_\alpha^2\frac{(1-f)\hat{S_b^2}}{e^2\bar{M}}
+\end{equation}
+
+\begin{equation}
+    e = \lambda_\alpha\sqrt{\widehat{V(\hat{X})}} = \sqrt{(1-f)\frac{N^2\bar{M}\hat{S_b^2}}{n}} \Rightarrow n = \frac{\lambda_\alpha^2(1-f)N^2\bar{M}\hat{S_b^2}}{e^2}
+\end{equation}
+
+Al igual que dijimos en la estimación de varianzas, cuando realicemos el muestreo con reemplazamiento será necesario eliminar el factor (1-f) de las igualdades anteriores para realizar las estimaciones correctas.
+
+\section{Aplicaciones para el muestreo por conglomerados de la librería samplingR}
+
+Las funciones desarrolladas para la aplicación de los conceptos teóricos mostrados en este capítulo utilizarán el prefijo \textit{cluster} como abreviación de \textit{cluster sampling}, y son las siguientes.
+
+\begin{itemize}[label=$\bullet$]
+    \item cluster.sample: Devuelve una muestra monoetápica de conglomerados para datos no agrupados, es decir, en los que se tiene los datos de cada individuo para cada conglomerado. Dicha muestra puede ser tomada con o sin reemplazamiento, dependiendo del valor del parámetro \textit{replace}.\\
+
+    Realiza las funciones explicadas en el apartado \ref{sect:6.1}.
+
+
+    \item cluster.estimator: Dada una muestra de datos, ya sean agrupados o sin agrupar, obtiene el estimador poblacional del parámetro especificado. También calcula su varianza estimada, error de muestreo y opcionalmente su error de estimación y un intervalo de confianza si se especifica el coeficiente de confianza en el parámetro \textit{alpha}. \\
+
+    Se permite indicar si el muestreo se realiza con o sin reemplazamiento para realizar estimaciones más precisas.\\
+
+    Realiza las funciones explicadas en el apartado \ref{sect:6.2} y \ref{sect:6.3}.
+
+    \item cluster.samplesize:  Calcula el tamaño de muestra necesario para cometer un error de muestreo absoluto menor del especificado. Se permite la relajación de su estimación si se especifica un coeficiente de confianza en el parámetro \textit{alpha}.\\
+    
+    Realiza las funciones explicadas en el apartado \ref{sect:6.4}.
+\end{itemize}

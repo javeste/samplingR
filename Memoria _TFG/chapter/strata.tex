@@ -1,0 +1,341 @@
+El objetivo del muestreo estratificado consiste en dividir una población heterogénea en subpoblaciones no solapadas lo más homogéneas posibles llamadas estratos, los cuales pueden venir determinados por factores demográficos, geográficos, socioeconómicos u otras variables relevantes para el estudio.\\
+
+Gracias a esta estrategia es posible representar de manera más precisa la información de los distintos estratos, teniendo en cuenta la heterogeneidad que hay  entre ellos. Además podemos realizar inferencias sobre cada uno de los estratos estudiados. Otra ventaja de esta división es la de poder destinar más recursos en la recogida de una muestra en aquellos estratos con mayor variabilidad para así ganar precisión reduciendo el error de muestreo.\\
+
+Este tipo de muestreo es un método poderoso y flexible que es ampliamente usado en la práctica. En las encuestas económicas (son las dirigidas a las empresas) es el principal tipo de diseño utilizado. Por ejemplo, se utiliza por el INE en los cálculos del \textit{Índice de Comercio al por Menor} o la \textit{Estadística Estructural de Empresas}.\\
+
+\section{Selección de la muestra} \label{sect:4.1}
+Para formar una muestra estratificada basta con tomar una muestra aleatoria (existen métodos para utilizar diferentes tipos de muestreo que además no debe de ser el mismo en cada estrato) para cada uno de los estratos en los que se divide la población. De este procedimiento surge una nueva cuestión: ¿Cómo realizamos el reparto del tamaño muestral entre los diferentes estratos?\\
+
+La \textit{afijación} de la muestra es el nombre con el que se denomina esta adjudicación de tamaños de submuestra para cada uno de los estratos. Entre las más destacadas y utilizadas en la práctica, se encuentran la afijación uniforme, proporcional, de mínima varianza y óptima, que vemos a continuación.\\
+
+\subsection{Afijación uniforme} \label{sect:4.1.1}
+Se trata de la estrategia más sencilla, consistente en asignar el mismo número de individuos a la muestra de cada uno de los estratos, teniendo entonces que $n_h = \frac{n}{L}$ $\forall h=1,...,L$ donde L es el número de estratos. En el caso de que $\frac{n}{L}$ no sea un número entero $n_h$ se redondea según sea conveniente para que al final nos acerquemos lo máximo posible al tamaño muestral deseado.\\
+ 
+\subsection{Afijación proporcional} \label{sect:4.1.2}
+Consiste en asignar individuos de la muestra de forma proporcional al tamaño poblacional de cada estrato, asegurando así la equiprobabilidad de que un individuo de la población pertenezca a la muestra, con una probabilidad de inclusión de $\pi_{hi} = \frac{n_h}{N_h}$. \\
+
+Con este tipo de afijación, el tamaño de la muestra para cada estrato queda definido por:
+\begin{equation}
+    n_h = N_h\frac{n}{N}
+\end{equation}
+
+
+\subsection{Afijación de mínima varianza} \label{sect:4.1.3}
+También conocida como afijación de Neyman, pretende calcular los tamaños de muestra para cada estrato de forma que la varianza de los estimadores sea mínima. Se trata por lo tanto de resolver un problema de optimización en el que queremos minimizar la función objetivo $V(\theta)$ bajo la restricción $\sum\limits_{h=1}^L n_h = n$.\\
+
+El resultado de este problema da la siguiente expresión para el tamaño muestral del estrato h:
+\begin{equation}
+    n_h = n\frac{N_hS_h}{\sum\limits_{h=1}^LN_hS_h}
+\end{equation}
+
+Que coincide para el cálculo del estimador del total y de la media.
+
+\subsection{Afijación óptima} \label{sect:4.1.4}
+Este tipo de afijación busca obtener la mínima varianza posible de los estimadores para un coste  fijado C. Este coste será el resultado de la suma de los costes de entrevistar individuos de los diferentes estratos para la muestra, cada uno con un coste determinado. \\
+
+Esto conlleva un problema de optimización con la misma función objetivo que la afijación de Neyman y la restricción $\sum\limits_{h=1}^L c_hn_h = C$, donde $c_h$ representa el coste de entrevistar un individuo del estrato h para la muestra.
+
+Resolviendo el problema llegamos a la expresión:
+\begin{equation}
+    n_h = n\frac{\frac{N_hS_h}{\sqrt{c_h}}}{\sum\limits_{h=1}^L\frac{N_hS_h}{\sqrt{c_h}}}
+\end{equation}
+
+que también coincide para todos los estimadores.\\
+
+Una variante de este enfoque implica añadir al problema anterior un coste máximo de estudio C y opcionalmente un coste base $C_{ini}$, llegando a una expresión similar dada por:
+
+\begin{equation}
+    n_h = (C-C_{ini})\frac{\frac{N_hS_h}{\sqrt{c_h}}}{\sum\limits_{h=1}^LN_hS_h\sqrt{c_h}}
+\end{equation}
+
+\section{Estimadores lineales insesgados} \label{sect:4.2}
+El cálculo de los estimadores lineales en el muestreo estratificado requiere de realizar la suma de los estimadores de todos los estratos, por lo que a partir de la fórmula general del estimador Horwitz-Thompson \ref{eq:2} llegamos a:
+
+\begin{equation}
+    \hat{\theta}_{HH} = \sum_{h=1}^{L}\sum_{i=1}^{n_h}\frac{X_{hi}}{\pi_{hi}}
+\end{equation}
+
+Extendiendo este procedimiento a las fórmulas \ref{eq:3} a \ref{eq:6} del muestreo aleatorio simple obtenemos:
+
+\begin{equation}
+    \hat{\theta} = \hat{X} = \sum_{h=1}^{L}\sum_{i=1}^{n_h}\frac{X_{hi}}{\pi_{hi}} = \sum_{h=1}^{L}\sum_{i=1}^{n_h}\frac{X_{i}}{\frac{n_h}{N_h}} = \sum_{h=1}^{L}N_h\frac{1}{n_h}\sum_{i=1}^{n_h}X_{hi} = \sum_{h=1}^{L}N_h\bar{x_h}
+\end{equation}
+
+\begin{equation}
+    \hat{\theta} = \hat{\bar{X}} = \sum_{h=1}^{L}\sum_{i=1}^{n_h}\frac{\frac{X_{hi}}{N_h}}{\pi_{hi}} = \sum_{h=1}^{L}\frac{1}{N}\sum_{i=1}^{n_h}\frac{X_{hi}}{\frac{n_h}{N_h}} = \sum_{h=1}^{L}\frac{N_h}{N}\frac{1}{n_h}\sum_{i=1}^{n_h}X_{hi} = \sum_{h=1}^{L}W_h\bar{x_h}
+\end{equation}
+
+\begin{equation}
+    \hat{\theta} = \hat{P} = \sum_{h=1}^{L}\frac{1}{N}\sum_{i=1}^{n_h}\frac{A_{hi}}{\pi_{hi}} = \sum_{h=1}^{L}\frac{1}{N}\sum_{i=1}^{n_h}\frac{A_{hi}}{\frac{n_h}{N_h}} = \sum_{h=1}^{L}\frac{N_h}{N}\frac{1}{n_h}\sum_{i=1}^{n_h}A_{hi} = \sum_{h=1}^{L}W_hP_h
+\end{equation}
+
+\begin{equation}
+    \hat{\theta} = \hat{A} = \sum_{h=1}^{L}\sum_{i=1}^{n_h}\frac{A_{hi}}{\pi_{hi}} = \sum_{h=1}^{L}\sum_{i=1}^{n_h}\frac{A_{hi}}{\frac{n_h}{N_h}} = \sum_{h=1}^{L}N_h\frac{1}{n_h}\sum_{i=1}^{n_h}A_{hi} = \sum_{h=1}^{L}N_hP_h
+\end{equation}
+
+los cuales coinciden con los estimadores del muestreo estratificado sin reemplazamiento.\\
+
+\section{Estimación de varianzas} \label{sect:4.3}
+
+La estimación de la varianza en cualquier proceso de investigación por muestreo es de suma importancia, ya que gracias a este valor podremos estimar la calidad del estudio realizado. A continuación se procede a relatar cómo se obtiene este valor distinguiendo si el método muestral utilizado es con o sin reemplazamiento.\\
+
+\subsection{Muestreo sin reemplazamiento}
+La estimación de la varianza para el estimador $\theta$ es igual a la suma de las varianzas de $\theta$ en cada uno de los estratos al ser las muestras independientes. Sustituyendo $\theta$ por cada uno de los estimadores obtenemos:
+
+\begin{equation}
+    \hat{V}(\hat{X}) = \sum_{h=1}^{L}N_h^2(1-f_h)\frac{\hat{S_h}^2}{n_h}
+\end{equation}
+\begin{equation}
+    \hat{V}(\hat{\bar{X}}) = \sum_{h=1}^{L}W_h^2(1-f_h)\frac{\hat{S_h}^2}{n_h}
+\end{equation}    
+\begin{equation}
+    \hat{V}(\hat{P}) = \sum_{h=1}^{L}W_h^2(1-f_h)\frac{\hat{P_h}\hat{Q_h}}{n_h-1}
+\end{equation}
+\begin{equation}
+    \hat{V}(\hat{A}) = \sum_{h=1}^{L}N_h^2(1-f_h)\frac{\hat{P_h}\hat{Q_h}}{n_h-1}
+\end{equation}
+
+\subsection{Muestreo con reemplazamiento}
+Aplicando el mismo fundamento con las varianzas en el muestreo estratificado con reemplazamiento obtenemos:
+
+\begin{equation}
+    \hat{V}(\hat{X}) = \sum_{h=1}^{L}N_h^2\frac{\hat{S_h}^2}{n_h}
+\end{equation}
+\begin{equation}
+    \hat{V}(\hat{\bar{X}}) = \sum_{h=1}^{L}W_h^2\frac{\hat{S_h}^2}{n_h}
+\end{equation}    
+\begin{equation}
+    \hat{V}(\hat{P}) = \sum_{h=1}^{L}W_h^2\frac{\hat{P_h}\hat{Q_h}}{n_h-1}
+\end{equation}
+\begin{equation}
+    \hat{V}(\hat{A}) = \sum_{h=1}^{L}N_h^2\frac{\hat{P_h}\hat{Q_h}}{n_h-1}
+\end{equation}
+
+que de forma similar a como ocurre en el apartado \ref{sect:4.3.2} de estimación de varianzas en el muestreo aleatorio simple, se diferencian del muestreo sin reemplazamiento en el factor $(1-f_h)$, denominado \textit{factor de corrección para poblaciones finitas}.//
+
+
+
+
+\section{Tamaño de la muestra} \label{sect:4.4}
+Al igual que en el muestreo aleatorio simple, es posible determinar el tamaño de muestra necesario para realizar estimaciones cometiendo un error de muestreo menor que el determinado. \\
+
+En el caso del muestreo estratificado, tras obtener el tamaño de muestra deben asignarse los recursos entre los distintos estratos de población, por lo que la afijación seleccionada también afectará al error cometido y por lo tanto a la estimación del tamaño muestral.
+
+\subsection{Afijación proporcional}
+Para estimar el tamaño de muestra con afijación proporcional dado un error de muestreo para el estimador de la media, usaremos el procedimiento de la sección \ref{sect:4.4.1} utilizando la fórmula de la varianza en la afijación proporcional.\\
+
+\begin{equation}
+    e^2 = \hat{V}(\hat{\bar{X}}) = \frac{1-\frac{n}{N}}{n}\sum\limits_{h=1}^LW_hS_h^2 \Rightarrow n = \frac{\sum\limits_{h=1}^LW_hS_h^2}{e^2+\frac{1}{N}\sum\limits_{h=1}^LW_hS_h^2}
+\end{equation}
+
+\subsection{Afijación de mínima varianza}
+
+De forma similar utilizando el valor de varianza mínima del estimador de la media en la afijación de Neyman:\\
+
+\begin{equation}
+    e^2 = \hat{V}(\hat{\bar{X}}) = \frac{1}{n}(\sum\limits_{h=1}^LW_hS_h)^2 -\frac{1}{N}\sum\limits_{h=1}^LW_hS_h^2 \Rightarrow n = \frac{(\sum\limits_{h=1}^LW_hS_h)^2}{e^2+\frac{1}{N}\sum\limits_{h=1}^LW_hS_h^2}
+\end{equation}
+
+\subsection{Afijación óptima}
+Tener en cuenta los costes por unidad de muestreo en cada estrato a la hora de obtener la varianza de los estimadores modifica la expresión del tamaño muestral:\\
+
+\begin{equation}
+    e^2 = \hat{V}(\hat{\bar{X}}) = \frac{1}{n}(\sum\limits_{h=1}^L\frac{W_hS_h}{\sqrt{c_h}})(\sum\limits_{h=1}^LW_hS_hc_h)-\frac{1}{N}\sum\limits_{h=1}^LW_hS_h^2  \Rightarrow n = \frac{(\sum\limits_{h=1}^L\frac{W_hS_h}{\sqrt{c_h}})(\sum\limits_{h=1}^LW_hS_hc_h)}{e^2+\frac{1}{N}\sum\limits_{h=1}^LW_hS_h^2}
+\end{equation}
+
+
+Aplicando a las fórmulas de estimación con error absoluto y relativo, tanto sin coeficiente de confianza como con él, obtenemos los resúmenes de las siguientes tablas:\\
+
+
+\subsection{Muestreo sin reemplazamiento}
+\begin{table}[H]
+\centering
+\resizebox{14cm}{!}{
+\renewcommand{\arraystretch}{2}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\begin{tabular}[c]{@{}c@{}}Tipo de error\\ Parametro\end{tabular} & Absoluto     & Relativo   & \begin{tabular}[c]{@{}c@{}}Absoluto y coeficiente \\ de confianza adicional\end{tabular}    & \begin{tabular}[c]{@{}c@{}}Relativo y coeficiente\\  de confianza adicional\end{tabular}     \\ \hline
+
+Total  & $\frac{N\sum\limits_{h=1}^LN_hS_h^2}{e^2+\sum\limits_{h=1}^LN_hS_h^2}$  & $\frac{N\sum\limits_{h=1}^LN_hS_h^2}{N^2\bar{X}^2e^2+\sum\limits_{h=1}^LN_hS_h^2}$ & $\frac{N\sum\limits_{h=1}^LN_hS_h^2}{\frac{e^2}{\lambda_\alpha^2}+\sum\limits_{h=1}^LN_hS_h^2}$       & $\frac{N\sum\limits_{h=1}^LN_hS_h^2}{\frac{N^2\bar{X}^2e^2}{\lambda_\alpha^2}+\sum\limits_{h=1}^LN_hS_h^2}$          \\ \hline
+
+Media   & $\frac{\sum\limits_{h=1}^LW_hS_h^2}{e^2+\frac{1}{N}\sum\limits_{h=1}^LW_hS_h^2}$  &  $\frac{\sum\limits_{h=1}^LW_hS_h^2}{\bar{X}^2e^2+\frac{1}{N}\sum\limits_{h=1}^LW_hS_h^2}$  & $\frac{\sum\limits_{h=1}^LW_hS_h^2}{\frac{e^2}{\lambda_\alpha^2}+\frac{1}{N}\sum\limits_{h=1}^LW_hS_h^2}$   &  $\frac{\sum\limits_{h=1}^LW_hS_h^2}{\frac{\bar{X}^2e^2}{\lambda_\alpha^2}+\frac{1}{N}\sum\limits_{h=1}^LW_hS_h^2}$\\ \hline
+
+Proporción & $\frac{\sum\limits_{h=1}^LW_h\frac{N_h}{N_h-1}P_hQ_h}{e^2+\frac{1}{N}\sum\limits_{h=1}^LW_h\frac{N_h}{N_h-1}P_hQ_h}$ & $\frac{\sum\limits_{h=1}^LW_h\frac{N_h}{N_h-1}P_hQ_h}{P^2e^2+\frac{1}{N}\sum\limits_{h=1}^LW_h\frac{N_h}{N_h-1}P_hQ_h}$ & $\frac{\sum\limits_{h=1}^LW_h\frac{N_h}{N_h-1}P_hQ_h}{\frac{e^2}{\lambda_\alpha^2}+\frac{1}{N}\sum\limits_{h=1}^LW_h\frac{N_h}{N_h-1}P_hQ_h}$ & $\frac{\sum\limits_{h=1}^LW_h\frac{N_h}{N_h-1}P_hQ_h}{\frac{P^2e^2}{\lambda_\alpha^2}+\frac{1}{N}\sum\limits_{h=1}^LW_h\frac{N_h}{N_h-1}P_hQ_h}$ \\ \hline
+
+Total de clase & $\frac{N\sum\limits_{h=1}^LN_h\frac{N_h}{N_h-1}P_hQ_h}{e^2+\sum\limits_{h=1}^LN_h\frac{N_h}{N_h-1}P_hQ_h}$   & $\frac{N\sum\limits_{h=1}^LN_h\frac{N_h}{N_h-1}P_hQ_h}{N^2P^2e^2+\sum\limits_{h=1}^LN_h\frac{N_h}{N_h-1}P_hQ_h}$ & $\frac{N\sum\limits_{h=1}^LN_h\frac{N_h}{N_h-1}P_hQ_h}{\frac{e^2}{\lambda_\alpha^2}+\sum\limits_{h=1}^LN_h\frac{N_h}{N_h-1}P_hQ_h}$  & $\frac{N\sum\limits_{h=1}^LN_h\frac{N_h}{N_h-1}P_hQ_h}{\frac{N^2P^2e^2}{\lambda_\alpha^2}+\sum\limits_{h=1}^LN_h\frac{N_h}{N_h-1}P_hQ_h}$         \\ \hline
+\end{tabular}}
+\caption{Tamaños de muestra con afijación proporcional en el muestreo sin reemplazamiento}
+\end{table}
+
+
+
+\begin{table}[H]
+\centering
+\resizebox{14cm}{!}{
+\renewcommand{\arraystretch}{2}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\begin{tabular}[c]{@{}c@{}}Tipo de error\\ Parametro\end{tabular} & Absoluto   & Relativo  & \begin{tabular}[c]{@{}c@{}}Absoluto y coeficiente \\ de confianza adicional\end{tabular}    & \begin{tabular}[c]{@{}c@{}}Relativo y coeficiente\\  de confianza adicional\end{tabular} \\ \hline
+
+Total  & $\frac{(\sum\limits_{h=1}^LN_hS_h)^2}{e^2+\sum\limits_{h=1}^LN_hS_h^2}$  & $\frac{(\sum\limits_{h=1}^LN_hS_h)^2}{N^2\bar{X}^2e^2+\sum\limits_{h=1}^LN_hS_h^2}$             & $\frac{(\sum\limits_{h=1}^LN_hS_h)^2}{\frac{e^2}{\lambda_\alpha^2}+\sum\limits_{h=1}^LN_hS_h^2}$   & $\frac{(\sum\limits_{h=1}^LN_hS_h)^2}{\frac{N^2\bar{X}^2e^2}{\lambda_\alpha^2}+\sum\limits_{h=1}^LN_hS_h^2}$   \\ \hline
+
+Media  & $\frac{(\sum\limits_{h=1}^LW_hS_h)^2}{e^2+\frac{1}{N}\sum\limits_{h=1}^LW_hS_h^2}$   & $\frac{(\sum\limits_{h=1}^LW_hS_h)^2}{\bar{X}^2e^2+\frac{1}{N}\sum\limits_{h=1}^LW_hS_h^2}$   & $\frac{(\sum\limits_{h=1}^LW_hS_h)^2}{\frac{e^2}{\lambda_\alpha^2}+\frac{1}{N}\sum\limits_{h=1}^LW_hS_h^2}$   & $\frac{(\sum\limits_{h=1}^LW_hS_h)^2}{\frac{\bar{X}^2e^2}{\lambda_\alpha^2}+\frac{1}{N}\sum\limits_{h=1}^LW_hS_h^2}$    \\ \hline
+
+Proporción   & $\frac{(\sum\limits_{h=1}^LW_h\sqrt{\frac{N_h}{N_h-1}P_hQ_h})^2}{e^2+\frac{1}{N}\sum\limits_{h=1}^LW_h\frac{N_h}{N_h-1}P_hQ_h}$ & $\frac{(\sum\limits_{h=1}^LW_h\sqrt{\frac{N_h}{N_h-1}P_hQ_h})^2}{P^2e^2+\frac{1}{N}\sum\limits_{h=1}^LW_h\frac{N_h}{N_h-1}P_hQ_h}$ & $\frac{(\sum\limits_{h=1}^LW_h\sqrt{\frac{N_h}{N_h-1}P_hQ_h})^2}{\frac{e^2}{\lambda_\alpha^2}+\frac{1}{N}\sum\limits_{h=1}^LW_h\frac{N_h}{N_h-1}P_hQ_h}$ & $\frac{(\sum\limits_{h=1}^LW_h\sqrt{\frac{N_h}{N_h-1}P_hQ_h})^2}{\frac{P^2e^2}{\lambda_\alpha^2}+\frac{1}{N}\sum\limits_{h=1}^LW_h\frac{N_h}{N_h-1}P_hQ_h}$ \\ \hline
+
+Total de clase   & $\frac{(\sum\limits_{h=1}^LN_h\sqrt{\frac{N_h}{N_h-1}P_hQ_h})^2}{e^2+\sum\limits_{h=1}^LN_h\frac{N_h}{N_h-1}P_hQ_h}$    & $\frac{(\sum\limits_{h=1}^LN_h\sqrt{\frac{N_h}{N_h-1}P_hQ_h})^2}{N^2P^2e^2+\sum\limits_{h=1}^LN_h\frac{N_h}{N_h-1}P_hQ_h}$         & $\frac{(\sum\limits_{h=1}^LN_h\sqrt{\frac{N_h}{N_h-1}P_hQ_h})^2}{\frac{e^2}{\lambda_\alpha^2}+\sum\limits_{h=1}^LN_h\frac{N_h}{N_h-1}P_hQ_h}$            & $\frac{(\sum\limits_{h=1}^LN_h\sqrt{\frac{N_h}{N_h-1}P_hQ_h})^2}{\frac{N^2P^2e^2}{\lambda_\alpha^2}+\sum\limits_{h=1}^LN_h\frac{N_h}{N_h-1}P_hQ_h}$    \\ \hline
+\end{tabular}}
+\caption{Tamaños de muestra con afijación de mínima varianza en el muestreo sin reemplazamiento}
+\end{table}
+
+
+
+
+\begin{table}[H]
+\centering
+\scalebox{0.75}{
+\renewcommand{\arraystretch}{2}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\begin{tabular}[c]{@{}c@{}}Tipo de error\\ Parametro\end{tabular} & Absoluto   & Relativo   & \begin{tabular}[c]{@{}c@{}}Absoluto y coeficiente \\ de confianza adicional\end{tabular}    & \begin{tabular}[c]{@{}c@{}}Relativo y coeficiente\\  de confianza adicional\end{tabular} \\ \hline
+Total    & $\frac{(\sum\limits_{h=1}^LN_hS_h/\sqrt{c_h})(\sum\limits_{h=1}^LN_hS_hc_h)}{e^2+\sum\limits_{h=1}^LN_hS_h^2}$   
+& $\frac{(\sum\limits_{h=1}^LN_hS_h/\sqrt{c_h})(\sum\limits_{h=1}^LN_hS_hc_h)}{\bar{X}^2e^2+\sum\limits_{h=1}^LN_hS_h^2}$     
+&   $\frac{(\sum\limits_{h=1}^LN_hS_h/\sqrt{c_h})(\sum\limits_{h=1}^LN_hS_hc_h)}{\frac{e^2}{\lambda_\alpha^2}+\sum\limits_{h=1}^LN_hS_h^2}$    
+& $\frac{(\sum\limits_{h=1}^LN_hS_h/\sqrt{c_h})(\sum\limits_{h=1}^LN_hS_hc_h)}{\frac{\bar{X}^2e^2}{\lambda_\alpha^2}+\sum\limits_{h=1}^LN_hS_h^2}$    \\ \hline
+
+Media     & $\frac{(\sum\limits_{h=1}^LW_hS_h/\sqrt{c_h})(\sum\limits_{h=1}^LW_hS_hc_h)}{e^2+\frac{1}{N}\sum\limits_{h=1}^LW_hS_h^2}$        
+& $\frac{(\sum\limits_{h=1}^LW_hS_h/\sqrt{c_h})(\sum\limits_{h=1}^LW_hS_hc_h)}{\bar{X}^2e^2+\frac{1}{N}\sum\limits_{h=1}^LW_hS_h^2}$      
+& $\frac{(\sum\limits_{h=1}^LW_hS_h/\sqrt{c_h})(\sum\limits_{h=1}^LW_hS_hc_h)}{\frac{e^2}{\lambda_\alpha^2}+\frac{1}{N}\sum\limits_{h=1}^LW_hS_h^2}$    
+& $\frac{(\sum\limits_{h=1}^LW_hS_h/\sqrt{c_h})(\sum\limits_{h=1}^LW_hS_hc_h)}{\frac{\bar{X}^2e^2}{\lambda_\alpha^2}+\frac{1}{N}\sum\limits_{h=1}^LW_hS_h^2}$ \\ \hline
+
+
+\end{tabular}}
+\caption{Tamaños de muestra con afijación óptima en el muestreo sin reemplazamiento}
+\end{table}
+
+Para obtener los tamaños para la proporción y el total de clase se debe sustituir $S_h$ por $\sqrt{\frac{N_h}{N_h-1}P_h(1-P_h)}$
+
+
+\subsection{Muestreo con reemplazamiento}
+\begin{table}[H]
+\centering
+\scalebox{0.9}{
+\renewcommand{\arraystretch}{2}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\begin{tabular}[c]{@{}c@{}}Tipo de error\\ Parametro\end{tabular} & Absoluto     & Relativo   & \begin{tabular}[c]{@{}c@{}}Absoluto y coeficiente \\ de confianza adicional\end{tabular}    & \begin{tabular}[c]{@{}c@{}}Relativo y coeficiente\\  de confianza adicional\end{tabular}     \\ \hline
+
+Total  & $\frac{N\sum\limits_{h=1}^LN_h\sigma_h^2}{e^2}$  & $\frac{N\sum\limits_{h=1}^LN_h\sigma_h^2}{N\bar{X}^2e^2}$ & $\frac{N\sum\limits_{h=1}^LN_h\sigma_h^2}{\frac{e^2}{\lambda_\alpha^2}}$  & $\frac{N\sum\limits_{h=1}^LN_h\sigma_h^2}{\frac{N\bar{X}^2e^2}{\lambda_\alpha^2}}$          \\ \hline
+
+Media   & $\frac{\sum\limits_{h=1}^LW_h\sigma_h^2}{e^2}$  &  $\frac{\sum\limits_{h=1}^LW_h\sigma_h^2}{\bar{X}^2e^2}$  & $\frac{\sum\limits_{h=1}^LW_h\sigma_h^2}{\frac{e^2}{\lambda_\alpha^2}}$   &  $\frac{\sum\limits_{h=1}^LW_h\sigma_h^2}{\frac{\bar{X}^2e^2}{\lambda_\alpha^2}}$\\ \hline
+
+Proporción & $\frac{\sum\limits_{h=1}^LW_hP_hQ_h}{e^2}$   &   $\frac{\sum\limits_{h=1}^LW_hP_hQ_h}{P^2e^2}$   &   $\frac{\sum\limits_{h=1}^LW_hP_hQ_h}{\frac{e^2}{\lambda_\alpha^2}}$   &   $\frac{\sum\limits_{h=1}^LW_hP_hQ_h}{\frac{P^2e^2}{\lambda_\alpha^2}}$ \\ \hline
+
+Total de clase & $\frac{N\sum\limits_{h=1}^LN_hP_hQ_h}{e^2}$   &   $\frac{N\sum\limits_{h=1}^LN_hP_hQ_h}{NP^2e^2}$   & $\frac{N\sum\limits_{h=1}^LN_hP_hQ_h}{\frac{e^2}{\lambda_\alpha^2}}$    &   $\frac{N\sum\limits_{h=1}^LN_hP_hQ_h}{\frac{NP^2e^2}{\lambda_\alpha^2}}$         \\ \hline
+\end{tabular}}
+\caption{Tamaños de muestra con afijación proporcional en el muestreo con reemplazamiento}
+\end{table}
+
+\begin{table}[H]
+\centering
+\scalebox{0.9}{
+\renewcommand{\arraystretch}{2}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\begin{tabular}[c]{@{}c@{}}Tipo de error\\ Parametro\end{tabular} & Absoluto   & Relativo  & \begin{tabular}[c]{@{}c@{}}Absoluto y coeficiente \\ de confianza adicional\end{tabular}    & \begin{tabular}[c]{@{}c@{}}Relativo y coeficiente\\  de confianza adicional\end{tabular} \\ \hline
+
+Total  & $\frac{(\sum\limits_{h=1}^LN_h\sigma_h)^2}{e^2}$   &   $\frac{(\sum\limits_{h=1}^LN_h\sigma_h)^2}{N^2\bar{X}^2e^2}$      & $\frac{(\sum\limits_{h=1}^LN_h\sigma_h)^2}{\frac{e^2}{\lambda_\alpha^2}}$   &   $\frac{(\sum\limits_{h=1}^LN_h\sigma_h)^2}{\frac{N^2\bar{X}^2e^2}{\lambda_\alpha^2}}$   \\ \hline
+
+Media  & $\frac{(\sum\limits_{h=1}^LW_h\sigma_h)^2}{e^2}$   &   $\frac{(\sum\limits_{h=1}^LW_h\sigma_h)^2}{\bar{X}^2e^2}$   & $\frac{(\sum\limits_{h=1}^LW_h\sigma_h)^2}{\frac{e^2}{\lambda_\alpha^2}}$   &   $\frac{(\sum\limits_{h=1}^LW_h\sigma_h)^2}{\frac{\bar{X}^2e^2}{\lambda_\alpha^2}}$    \\ \hline
+
+Proporción   & $\frac{(\sum\limits_{h=1}^LW_h\sqrt{P_hQ_h})^2}{e^2}$   &   $\frac{(\sum\limits_{h=1}^LW_h\sqrt{P_hQ_h})^2}{P^2e^2}$ & $\frac{(\sum\limits_{h=1}^LW_h\sqrt{P_hQ_h})^2}{\frac{e^2}{\lambda_\alpha^2}}$ & $\frac{(\sum\limits_{h=1}^LW_h\sqrt{P_hQ_h})^2}{\frac{P^2e^2}{\lambda_\alpha^2}}$ \\ \hline
+
+Total de clase   & $\frac{(\sum\limits_{h=1}^LN_h\sqrt{P_hQ_h})^2}{e^2}$   &   $\frac{(\sum\limits_{h=1}^LN_h\sqrt{P_hQ_h})^2}{N^2P^2e^2}$         & $\frac{(\sum\limits_{h=1}^LN_h\sqrt{P_hQ_h})^2}{\frac{e^2}{\lambda_\alpha^2}}$    &   $\frac{(\sum\limits_{h=1}^LN_h\sqrt{P_hQ_h})^2}{\frac{N^2P^2e^2}{\lambda_\alpha^2}}$    \\ \hline
+\end{tabular}}
+\caption{Tamaños de muestra con afijación de mínima varianza en el muestreo con reemplazamiento}
+\end{table}
+
+
+
+
+\begin{table}[H]
+\centering
+\scalebox{0.75}{
+\renewcommand{\arraystretch}{2}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\begin{tabular}[c]{@{}c@{}}Tipo de error\\ Parametro\end{tabular} & Absoluto   & Relativo   & \begin{tabular}[c]{@{}c@{}}Absoluto y coeficiente \\ de confianza adicional\end{tabular}    & \begin{tabular}[c]{@{}c@{}}Relativo y coeficiente\\  de confianza adicional\end{tabular} \\ \hline
+Total    & $\frac{(\sum\limits_{h=1}^LN_hS_h/\sqrt{c_h})(\sum\limits_{h=1}^LN_hS_hc_h)}{e^2}$   
+& $\frac{(\sum\limits_{h=1}^LN_hS_h/\sqrt{c_h})(\sum\limits_{h=1}^LN_hS_hc_h)}{\bar{X}^2e^2}$     
+&   $\frac{(\sum\limits_{h=1}^LN_hS_h/\sqrt{c_h})(\sum\limits_{h=1}^LN_hS_hc_h)}{\frac{e^2}{\lambda_\alpha^2}}$    
+& $\frac{(\sum\limits_{h=1}^LN_hS_h/\sqrt{c_h})(\sum\limits_{h=1}^LN_hS_hc_h)}{\frac{\bar{X}^2e^2}{\lambda_\alpha^2}}$    \\ \hline
+
+Media     & $\frac{(\sum\limits_{h=1}^LW_hS_h/\sqrt{c_h})(\sum\limits_{h=1}^LW_hS_hc_h)}{e^2}$        
+& $\frac{(\sum\limits_{h=1}^LW_hS_h/\sqrt{c_h})(\sum\limits_{h=1}^LW_hS_hc_h)}{\bar{X}^2e^2}$      
+& $\frac{(\sum\limits_{h=1}^LW_hS_h/\sqrt{c_h})(\sum\limits_{h=1}^LW_hS_hc_h)}{\frac{e^2}{\lambda_\alpha^2}}$    
+& $\frac{(\sum\limits_{h=1}^LW_hS_h/\sqrt{c_h})(\sum\limits_{h=1}^LW_hS_hc_h)}{\frac{\bar{X}^2e^2}{\lambda_\alpha^2}}$ \\ \hline
+
+\end{tabular}}
+\caption{Tamaños de muestra con afijación óptima en el muestreo con reemplazamiento}
+\end{table}
+
+Para obtener los tamaños para la proporción y el total de clase se debe sustituir $S_h$ por $\sqrt{\frac{N_h}{N_h-1}P_h(1-P_h)}$
+
+
+\section{Tamaño de muestra dado un presupuesto} \label{sect:4.5}
+En ocasiones, el estudio está limitado en cuanto a la cantidad de información que es capaz de recoger debido a un presupuesto máximo establecido. Otro factor a tener en cuenta es el coste que supone poner en marcha el estudio, antes incluso de empezar a recopilar información. Por lo tanto, tenemos un presupuesto para tomar la muestra de $C-C_{ini}$, donde C es el presupuesto del estudio y $C_{ini}$ el coste de iniciar el proyecto.\\
+
+Tomando afijación uniforme, el tamaño de muestra sería:\\
+
+\begin{equation}
+    n = \frac{(C-C_{ini})L}{\sum\limits_{h=1}^Lc_h}
+\end{equation}
+
+Con afijación proporcional:\\
+
+\begin{equation}
+    n = \frac{(C-C_{ini})}{\sum\limits_{h=1}^LW_hc_h}
+\end{equation}
+
+Con afijación de mínima varianza, la cual coincide con la afijación óptima al optimizar con la restricción de costes:\\
+
+\begin{equation}
+    n = \frac{(C-C_{ini})\frac{W_hS_h}{\sqrt{c_h}}}{\sum\limits_{h=1}^LW_hS_h\sqrt{c_h}}
+\end{equation}
+
+
+\section{Aplicaciones para el muestreo estraficado de la librería samplingR}
+
+Las funciones desarrolladas para la aplicación de los conceptos teóricos mostrados en este capítulo utilizarán el prefijo \textit{strata} como abreviación de \textit{stratified sampling}, y son las siguientes.
+
+\begin{itemize}[label=$\bullet$]
+    \item strata.sample: Dado un tamaño poblacional N devuelve una muestra estratificada con tantos individuos de cada estrato como se especifique en el vector de tamaños de muestra n. Dicha muestra puede ser tomada con o sin reemplazamiento, dependiendo del valor del parámetro \textit{replace}.\\
+
+    Realiza las funciones explicadas en el apartado \ref{sect:4.1}.
+
+    \item strata.allocation: Realiza la división del tamaño de muestra general para cada uno de los estratos, dependiendo del tipo de afijación especificado en el parámetro \textit{allocation}.\\
+
+    En el caso de especificar la afijación óptima, se debe incluir un vector de costes \textit{ch}, en el cual opcionalmente se puede declarar un coste máximo de estudio y un coste de incio del proyecto.\\
+
+    Realiza las funciones explicadas en los subapartados \ref{sect:4.1.1} a \ref{sect:4.1.4}.
+
+
+    \item strata.estimator: Dada una muestra de datos obtiene el estimador poblacional del parámetro especificado. También calcula su varianza estimada, error de muestreo y opcionalmente su error de estimación y un intervalo de confianza si se especifica el coeficiente de confianza en el parámetro \textit{alpha}. \\
+
+    Se permite indicar si el muestreo se realiza con o sin reemplazamiento para realizar estimaciones más precisas.\\
+
+    Realiza las funciones explicadas en el apartado \ref{sect:4.2} y \ref{sect:4.3}.
+
+    \item strata.samplesize: Calcula el tamaño de muestra necesario para cometer un error de muestreo menor del especificado. Dicho error puede ser absoluto o relativo, según el parámetro \textit{relative}, y se permite la relajación de su estimación si se especifica un coeficiente de confianza. \\
+
+    Para el cálculo no se pide aportar los datos poblacionales por la posibilidad de no disponer de ellos, si no que se deben aportar medidas estadísticas tales como la estimación de la varianza y el tamaño poblacional. También se puede especificar el tipo de muestreo y la afijación que se va a utilizar para realizar estimaciones más precisas.\\
+
+    Aplica los conceptos explicados en el apartado \ref{sect:4.4}.
+
+    \item strata.samplesize.cost: Calcula el tamaño de muestra dada la afijación a utilizar y un vector de costes, incluyendo la posibilidad de especificar el coste máximo del estudio y el coste de inicio del proyecto.\\
+
+    Realiza las funciones explicadas en el apartado \ref{sect:4.5}.
+
+
+\end{itemize}

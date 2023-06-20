@@ -1,0 +1,120 @@
+\documentclass[12pt,twoside]{report} 
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+
+\usepackage{enumitem}
+\usepackage[spanish]{babel}
+\usepackage{float}
+\usepackage{caption}
+\usepackage[sorting=none, style=numeric]{biblatex} 
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{pdfpages}
+\bibliography{referencias}
+
+\setcounter{secnumdepth}{3}
+\renewcommand\spanishtablename{Tabla}
+%%%%%%%%%%%%%%% DISEÑO %%%%%%%%%%%%%%%%%%%%%
+\usepackage[a4paper, top=25mm, margin=30mm]{geometry}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot{}
+\fancyfoot[LE,RO]{\thepage}
+
+\usepackage{etoolbox}
+\patchcmd{\chapter}{\thispagestyle{plain}}{\thispagestyle{fancy}}{}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+\input{chapter/portada}
+
+\newpage
+\pagenumbering{Roman}
+\setcounter{page}{1}
+\chapter*{Abstract}
+\input{chapter/abstract}
+
+\chapter*{Agradecimientos}
+\input{chapter/agradecimientos}
+
+\newpage
+\renewcommand*\contentsname{Tabla de contenidos}
+\tableofcontents
+\newpage
+
+\listoffigures
+\newpage
+
+\renewcommand{\listtablename}{Índice de tablas}
+\listoftables
+\newpage
+
+
+
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\chapter{Introducción}
+\input{chapter/intro}
+
+
+\newpage
+\chapter{Creación de una librería de funciones en R}
+\input{chapter/Rpackage}
+
+
+
+\newpage
+\chapter{Muestreo aleatorio simple}
+\input{chapter/mas}
+
+
+\newpage
+\chapter{Muestreo estratificado}
+\input{chapter/strata}
+
+
+\newpage
+\chapter{Muestreo sistemático}
+
+\input{chapter/sys}
+
+
+
+\newpage
+\chapter{Muestreo por conglomerados}
+\input{chapter/cluster}
+
+
+\newpage
+\chapter{Conclusiones y líneas futuras}
+\input{chapter/conclusiones}
+\input{chapter/futuro}
+\newpage
+
+
+
+\newpage
+\addcontentsline{toc}{chapter}{9.\hspace{1mm} Bibliografía}
+\printbibliography 
+
+
+
+\newpage
+\chapter*{Anexos}
+\addcontentsline{toc}{chapter}{10.\hspace{1mm} Anexos}
+En esta sección se incluyen contenidos de interés disponibles en la página web proporcionada por CRAN sobre la librería creada en este trabajo \cite{samplingRweb}, compuestos por el manual de usuario con información detallada sobre las funciones desarrolladas y una viñeta creada para ejemplificar el uso de las funciones del muestreo estratificado de cálculo del tamaño de muestra y afijación, utilizando para ello herramientas creadas en la librería generada en este TFG.
+
+\includepdf[pages=-]{samplingR.pdf} %actualizar a la ultima version antes de subida
+
+\label{sect:vignette}
+\includepdf[pages=-]{Strata.pdf}
+
+\end{document}
+

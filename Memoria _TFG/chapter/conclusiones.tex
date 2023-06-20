@@ -1,0 +1,22 @@
+\section{Conclusiones}
+En los apartado anteriores, se ha mostrado un resumen del aparato teórico que rodea a los métodos de muestreo normalmente utilizados para poblaciones finitas.\\
+
+Como ha podido comprobarse, esos métodos se basan en una cantidad ingente de fórmulas difíciles de memorizar para poder proceder a obtener resultados de manera rápida como hoy en día demanda nuestra sociedad. Es por ello que para poder conseguir este objetivo se hace preciso ocupar un espacio hoy en día poco cubierto con herramientas informáticas. \\
+
+En consecuencia y dada la capacidad que ofrece R para implementar técnicas estadísticas, se ha utilizado esta herramienta para implementar las técnicas que de una forma teórica se han expuesto en los apartados anteriores y además se ha hecho de una manera que sea lo más eficiente posible, tanto en la reducción del número de funciones necesarias como desde el punto de vista de la optimización del número de parámetros requeridos en esas funciones para poder conseguir el mayor número posible de estimaciones derivados de la aplicación de las mismas.\\
+
+En resumen, desde un punto de vista informático, se ha creado una librería compuesta por 17 funciones que permiten al usuario obtener muestras, realizar estimación de parámetros sobre una muestra poblacional, calcular el tamaño muestral necesario para cometer como máximo un error de muestreo dado, realizar tablas de análisis de la varianza sobre muestras sistemáticas y obtener medidas de interés. En resumen se ha pretendido facilitar al máximo la aplicación práctica de las técnicas muestrales mostradas en apartados anteriores de este TFG\\
+
+Estas funciones han sido creadas y diseñadas con el objetivo de minimizar el número de nombres de función que el usuario debe recordar, procurando que para la realización de una misma tarea para un tipo de muestreo determinado se deba usar siempre la misma denominación de función variando los parámetros de control de la misma.\\
+
+La nomenclatura de las funciones está definida para poder acceder a ella de manera sencilla, empezando siempre por el tipo de muestreo con el que vayamos a trabajar (srs, strata, sys y cluster para muestreo aleatorio  simple, estratificado, sistemático y de conglomerados respectivamente) como si de un prefijo se tratara, separado por un punto del resto del nombre. Así por ejemplo tenemos que la función \textit{srs.sample} es la indicada para tomar una muestra en el muestreo aleatorio simple.\\
+
+Además de las funciones de uso público, también constan en la librería funciones auxiliares como aquellas destinadas a evitar la repetición de código u otras como la que muestra el mensaje de bienvenida cuando se utiliza la función \textit{library(samplingR)} para poder empezar a hacer uso de sus funciones.\\
+
+Dada la estructura que se dispone en la creación de los paquetes de R, se ha procedido a implementar líneas ayuda durante la creación de las funciones que constituyen el paquete creado en este TFG, consiguiendo de esta manera poder obtener de forma automática un pequeño manual de uso de esta librería, el cual se puede consultar en la web proporcionada por CRAN \cite{samplingR}, documento PDF que igualmente se puede ver en el anexo que figura al final de este TFG. \\
+
+Igualmente, a continuación del manual mencionado anteriormente, también se puede ver una \textit{vignette}  creada en este TFG con la cual se pretende que con la ayuda de un ejemplo se puedan asimilar de forma eficiente los resultados de ciertas funciones que se han desarrollado dentro del paquete creado y diseñado en ese TFG.\\
+
+Se incluye en la bibliografía un enlace a un repositorio GitHub donde se encuentra el código creado durante este trabajo para su revisión y uso, así como este documento \cite{github}.
+
+%!!!!!!!!!!mas conclusión si es necesario%

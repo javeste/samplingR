@@ -1,0 +1,50 @@
+Para multitud de análisis económicos, demoscópicos, sociosanitarios, etc., resulta de interés conocer el valor de determinados parámetros poblacionales (medias, proporciones, totales, ...), que comúnmente son desconocidos. Ya sea el salario promedio de las familias españolas o el total de accidentes en el sector de la construcción en un determinado territorio, es necesario invertir recursos en realizar un estudio para poder hacer el análisis de los datos de interés en busca de información útil.\\
+
+El muestreo permite realizar un análisis sobre una subpoblación o muestra de la población objetivo a estudiar, obteniendo estimadores que se aproximen al valor real que se conseguiría al realizar el estudio sobre la población completa, con el aliciente de hacerlo de forma eficiente y con un uso de recursos reducido, lo que supone un método muy conveniente para organizaciones de todo tipo.\\
+
+El muestreo estadístico parte de la premisa, apoyada en los resultados de la Estadística Matemática, de que al tomar una muestra aleatoria de la población las propiedades de la primera deben ser extrapolables a la segunda, ya que la muestra constituirá una representación a pequeña escala de la población completa. Por otro lado, para que el estudio sea adecuado debe asegurarse que la muestra contenga suficientes individuos de la población para que la información obtenida sea significativa, en el sentido de que los márgenes de error de las estimaciones sean aceptables. Cuando se combinan ambas cosas, es decir, una muestra seleccionada por un procedimiento aleatorio convenientemente diseñado y de un tamaño suficiente para que los márgenes de error sean aceptables, decimos que la muestra es representativa.\\
+
+\section{Tipos de muestreo}
+Existen diferentes tipos de muestreo según la forma que se considere para seleccionar la muestra de estudio. Entre los más destacados se encuentran: \\
+
+    \begin{itemize}[label=$\bullet$]
+        \item Muestreo aleatorio simple: Es el tipo de muestreo más simple. En él la muestra se obtiene seleccionando individuos de la población al azar hasta llegar al tamaño de muestra requerido. La selección puede realizarse con o sin reemplazamiento.
+        
+        \item Muestreo estratificado: La población se divide en grupos lo más homogéneos posibles con respecto a una determinada característica, pero heterogéneos entre ellos. Los estratos no deben solaparse entre ellos. Una vez realizada la estratificación, se toma una muestra representativa de cada estrato para conformar la muestra poblacional.
+        
+        \item Muestreo sistemático: Se divide la población en un número de zonas del mismo tamaño (tantas como unidades tiene la muestra) y se selecciona un elemento de una  de ellas. Una vez seleccionada se toman del resto de zonas las unidades en la misma posición que la seleccionada originalmente, formando una denominada \textit{muestra de 1 en k}. Esta técnica tiene la ventaja de aplicarse de forma sencilla y bajo ciertas premisas, presentar errores de muestreo menores que en situaciones anteriores.
+        
+        \item Muestreo por conglomerados: La población se divide en grupos heterogéneos pero lo más homogéneos posibles entre ellos. La muestra se selecciona tomando un grupo aleatorio de conglomerados. Al realizar la estimación se analizan todos los individuos dentro de cada conglomerado (si utilizamos un muestreo monoetápico). En otras ocasiones también se puede realizar un nuevo submuestreo dentro de los conglomerados elegidos en la primera etapa. 
+    \end{itemize}
+
+\section{La estadística oficial}
+Una de las formas más importantes en la toma de datos dentro de la producción estadística oficial consiste en recoger la información mediante encuestas muestrales, es decir una investigación parcial de la población finita a través de una encuesta. Por otro lado hay que tener en cuenta que una encuesta muestral cuesta menos que un censo y casi se puede afirmar que es mucho más acurada.\\
+
+Ante la necesidad de información, tanto por parte de la sociedad como de los responsables políticos, en muchos países se han constituido legalmente los denominados \textit{institutos nacionales de estadística} cuya finalidad es la de proporcionar información estadística lo suficientemente fiable sobre la situación de cada país. En estos centros administrativos las encuestas son una parte importante de su actividad. En el caso concreto de España, el Instituto Nacional de Estadística (INE) se rige por la ley 12/1989 del 9 de Mayo de la Función Estadística Pública, modificada por la disposición 11311, ley 13/2022.\\
+
+Por lo tanto, los INEs producen regularmente estadísticas sobre características y actividades nacionales importantes, incluyendo la demografía, agricultura, población activa (EPA), salud y condiciones de vida, industria y comercio. Para conseguir estos objetivos utilizan de una forma muy técnica y ambiciosa diferentes técnicas de muestreo con utilidades ya existentes o ampliando la teoría de muestreo disponible en cada momento. \\
+
+En el caso concreto del INE en España, y salvo los trabajos censales o la recogida de información basada en registros administrativos, su basta producción estadística se basa en trabajos sobre muestras, elaborados con diferentes diseños muestrales, y entre los que destacan encuestas muy útiles en nuestra sociedad, como pueden ser la Encuesta de Población Activa (EPA),  Encuesta de Presupuestos Familiares (EPF), etc. Es por lo tanto este Organismo Administrativo uno de los centros de referencia nacionales a la hora de aplicar las diversas técnicas de muestreo hoy conocidas.
+
+\section{Muestreo en R}
+En el lenguaje de programación R ya existen ciertas librerías públicas de funciones relacionadas con el muestreo. Las más destacadas por su completitud serían \textit{sampling} \cite{sampling} y \textit{TeachingSampling} \cite{TeachingSampling}. Viendo su documentación y funcionamiento uno puede darse cuenta que, en la primera, la estimación de la varianza se calcula usando el método de Deville o el estimador general de Horwitz-Thompson en lugar de realizar una estimación específica según el tipo de muestreo y parámetro a estimar. En la segunda librería sí se realiza la estimación de varianzas de manera específica.\\
+
+En ambos casos al tomar las muestras o realizar estimaciones se requiere de un tamaño de muestra que no es posible estimar con ninguna función implementada en estos paquetes. Esta última cuestión resulta de gran importancia si a la hora de realizar el muestreo es necesario cumplir requisitos específicos como un error inferior a una tolerancia dada o no exceder un coste de estudio determinado.\\
+
+\section{Objetivos}
+El objetivo de este trabajo consiste en desarrollar una librería de funciones en R para aportar una nueva visión a la hora de trabajar el muestreo estadístico y ampliar la operatividad de librerías ya existentes con funciones dedicadas a obtener el mínimo tamaño de muestra necesario para cumplir con requisitos especificados por el usuario. El desarrollo de las funciones y código necesario para la implementación de este trabajo tendrá su apoyo en el fundamento teórico del libro \textit{Técnicas de muestreo estadístico: teoría, práctica y aplicaciones informáticas} \cite{librobase} del estadístico César Pérez. \\
+
+\section{Estructura de la memoria}
+Los contenidos de este trabajo se desarrollan en el siguiente orden:\\
+
+El primer capítulo se trata del actual, y describe el marco teórico del problema propuesto y sus objetivos.\\
+
+El segundo capítulo realiza una revisión del proceso de creación de una librería de funciones genérica en R hasta su subida a \textit{CRAN} \cite{CRAN}. \\
+
+En los capítulos 3 a 6 se recordarán las principales técnicas de muestreo y cómo se han codificado las mismas en el lenguaje de programación utilizado en este trabajo. \\
+
+Finalmente, en el capítulo 7, se llegará a las conclusiones del proyecto y se trazarán posibles líneas de trabajo futuras para la continuación de la materia.\\
+
+En los anexos se incluye el manual oficial de uso de la librería creada y se proporciona, mediante una \textit{vignette}, un ejemplo de un ejercicio práctico que puede ser resuelto de una forma ágil y cómoda utilizando la librería \textit{samplingR} \cite{samplingR}, con la finalidad de  ver las ventajas que aporta su uso. \\  
+
+Todos los productos generados durante este TFG se encuentran disponibles en un repositorio GitHub disponible en la bibliografía \cite{github}.
